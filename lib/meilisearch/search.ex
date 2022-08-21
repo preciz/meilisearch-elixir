@@ -49,13 +49,14 @@ defmodule Meilisearch.Search do
       }}
   """
   @spec search(String.t(), String.t() | nil, Keyword.t()) :: HTTP.response()
-  def search(uid, search_query, opts \\ []) do
-    params =
-      case search_query do
-        nil -> opts
-        q -> [{:q, q} | opts]
+  def search(uid, search_query, opts \\ %{}) do
+    opts =
+      if search_query do
+        Map.put(opts, "q", search_query)
+      else
+        opts
       end
 
-    HTTP.get_request("indexes/#{uid}/search", [], params: params)
+    HTTP.post_request("indexes/#{uid}/search", opts)
   end
 end
