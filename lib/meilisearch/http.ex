@@ -34,6 +34,13 @@ defmodule Meilisearch.HTTP do
     |> handle_response()
   end
 
+  @spec patch_request(String.t(), any, any, Keyword.t()) :: response()
+  def patch_request(url, body, headers \\ [], options \\ []) do
+    url
+    |> patch(body, headers, options)
+    |> handle_response()
+  end
+
   @spec delete_request(String.t(), any, Keyword.t()) :: response()
   def delete_request(url, headers \\ [], options \\ []) do
     url

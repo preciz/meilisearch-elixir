@@ -46,7 +46,7 @@ defmodule Meilisearch.Settings do
   """
   @spec update(String.t(), any()) :: HTTP.response()
   def update(index_uid, settings \\ %{}) do
-    HTTP.post_request("indexes/#{index_uid}/settings", settings)
+    HTTP.patch_request("indexes/#{index_uid}/settings", settings)
   end
 
   @doc """
